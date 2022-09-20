@@ -26,6 +26,9 @@ theme:
     - search.suggest
 
 plugins:
+  - gen-files:
+      scripts:
+        - generators/inspector_facet.py
   - git-revision-date-localized:
       enable_creation_date: true
   - mkdocstrings:
@@ -40,6 +43,10 @@ plugins:
   - search
   - social
   - tags
+
+markdown_extensions:
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 extra:
   homepage: https://moonstream.to
