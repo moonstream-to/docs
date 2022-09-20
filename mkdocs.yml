@@ -1,0 +1,43 @@
+site_name: "The Moonstream Docs"
+
+theme:
+  name: material
+  logo: assets/moonstream-logo.png
+  favicon: images/favicon.png
+  palette:
+    - scheme: slate
+      primary: black
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: black
+      accent: orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark-mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - search.suggest
+
+plugins:
+  - mkdocstrings
+  - search
+  - social
+  - tags
+
+extra:
+  homepage: https://moonstream.to
+  social:
+    - icon: fontawesome/brands/github
+      link: "https://github.com/bugout-dev/moonstream"
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/pYE65FuNSz
+    - icon: fontawesome/brands/twitter
+      link: "https://twitter.com/moonstreamto"
+
+  generator: false
+
+copyright: Copyright &copy; 2022 Moonstream.to
