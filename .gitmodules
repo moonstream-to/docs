@@ -1,3 +1,6 @@
 [submodule "moonworm"]
 	path = moonworm
-	url = git@github.com:bugout-dev/moonworm.git
+	url = https://github.com/bugout-dev/moonworm.git
+[submodule "inspector-facet"]
+	path = inspector-facet
+	url = https://github.com/bugout-dev/inspector-facet.git
