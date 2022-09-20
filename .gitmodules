@@ -1,0 +1,3 @@
+[submodule "moonworm"]
+	path = moonworm
+	url = git@github.com:bugout-dev/moonworm.git

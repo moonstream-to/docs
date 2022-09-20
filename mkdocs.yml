@@ -4,6 +4,9 @@ theme:
   name: material
   logo: assets/moonstream-logo.png
   favicon: images/favicon.png
+  font:
+    text: Space Grotesk
+    code: Space Mono
   palette:
     - scheme: slate
       primary: black
@@ -23,7 +26,17 @@ theme:
     - search.suggest
 
 plugins:
-  - mkdocstrings
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_section_style: spacy
+            separate_signature: true
+            show_signature_annotations: true
+          paths:
+            - moonworm
   - search
   - social
   - tags
@@ -40,4 +53,11 @@ extra:
 
   generator: false
 
+repo_url: https://github.com/bugout-dev/moonstream-docs
+
+edit_uri: edit/main/docs
+
 copyright: Copyright &copy; 2022 Moonstream.to
+
+watch:
+  - moonworm
