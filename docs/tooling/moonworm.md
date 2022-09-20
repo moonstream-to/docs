@@ -30,7 +30,7 @@ using them:
 
 1. [`watch`](#crawling-events-and-method-calls-to-smart-contracts) - generates a crawler for a given contract at runtime
 
-2. [`find_deployment`][moonworm.deployment] - uses a binary search to pin down the exact block at which
+2. [`find_deployment`](#discovering-the-block-at-which-a-smart-contract-was-deployed) - uses a binary search to pin down the exact block at which
 a smart contract was deployed
 
 
@@ -41,6 +41,25 @@ Install [`moonworm`](https://pypi.org/project/moonworm/) using:
 ```
 pip install moonworm
 ```
+
+## Uses
+
+### Generating brownie-compatible smart contract interfaces
+
+::: moonworm.generators.brownie.generate_brownie_interface
+    options:
+      heading_level: 5
+      show_root_heading: true
+      show_root_toc_entry: true
+
+#### CLI: `moonworm generate-brownie`
+
+To access this functionality from the `moonworm` command-line interface, use the `moonworm generate-brownie` command:
+
+```
+moonworm generate-brownie --help
+```
+
 
 ### Generating web3.py-compatible smart contract interfaces
 
@@ -61,21 +80,6 @@ To access this functionality from the `moonworm` command-line interface, use the
 moonworm generate --help
 ```
 
-### Generating brownie-compatible smart contract interfaces
-
-::: moonworm.generators.brownie.generate_brownie_interface
-    options:
-      heading_level: 5
-      show_root_heading: true
-      show_root_toc_entry: true
-
-#### CLI: `moonworm generate-brownie`
-
-To access this functionality from the `moonworm` command-line interface, use the `moonworm generate-brownie` command:
-
-```
-moonworm generate-brownie --help
-```
 
 ### Crawling events and method calls to smart contracts
 
