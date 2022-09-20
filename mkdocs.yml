@@ -5,7 +5,7 @@ theme:
   logo: assets/moonstream-logo.png
   favicon: images/favicon.png
   font:
-    text: Space Grotesk
+    text: Inter
     code: Jetbrains Mono
   palette:
     - scheme: moonstream
