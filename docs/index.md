@@ -39,8 +39,7 @@ with over 2000 ETH in transaction volume.
 
 ### Terminus for Access Control
 
-Terminus is also very useful as a mechanism to control access to functionality on smart contracts and
-in APIs.
+Terminus useful for controlling access to smart contracts and APIs.
 
 Smart contracts can use the `holdsPoolToken` and `spendsPoolToken` modifiers from our `TerminusPermissions`
 contracts to gate access to methods.
