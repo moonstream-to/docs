@@ -26,6 +26,7 @@ It also allows game designers and game developers to delegate minting and burnin
 token IDs to other accounts or to other smart contracts.
 
 This is useful as game developers can represent all of the following types of assets using a single smart contract:
+
 1. Badges: Non-transferable tokens which can be minted by a game server or other game contract
 1. Items: Transferable tokens with a high maximum supply
 1. Consumable tokens: Transferable tokens which are burned by the game contract on use
