@@ -14,16 +14,37 @@ If you are building a web3 game, the Moonstream engine provides you the tools yo
 with the blockchain, manage your on-chain economy, and keep your players entertained.
 
 
-## Features
+## Terminus
 
-The Moonstream engine provides:
+The [Terminus](./terminus.md) smart contract standard is an improvement of the [EIP1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)
+designed to represent items, achievements, and experience in web3 game economies.
+
+Terminus modifies EIP1155 by allowing game designers and game developers to define *transferability*,
+*burnability*, and even supply limits at the level of token IDs.
+
+It also allows game designers and game developers to delegate minting and burning capabilities on individual
+token IDs to other accounts or to other smart contracts.
+
+This is useful as game developers can represent all of the following types of assets using a single smart contract:
+1. Badges: Non-transferable tokens which can be minted by a game server or other game contract
+1. Items: Transferable tokens with a high maximum supply
+1. Consumable tokens: Transferable tokens which are burned by the game contract on use
+1. Artifacts: Transferable tokens with a low maximum supply
+
+Terminus is compatible with any marketplace that supports the EIP1155 Multi-Token Standard, such as
+[Open Sea](https://opensea.io).
+The largest Terminus marketplace on Open Sea is currently [Crypto Unicorns: Item Marketplace](https://opensea.io/collection/crypto-unicorns-items-marketplace),
+with over 2000 ETH in transaction volume.
+
+## The Moonstream Engine
+
+The Moonstream Engine provides:
 
 1. [Mechanics]() - A library of game mechanics that game developers and game designers can compose to build fully on-chain game experiences for their player community.
-2. [Terminus]() - The Terminus protocol, an improvement of the [EIP1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155) designed to represent items, achievements, and experience in web3 game economies.
-3. [Crafting]() - An on-chain crafting system that web3 games can use to represent the workings of their economies directly on the blockchain.
-4. [Dropper]() - A tool which allows game designers and game developers to reward their players for in-game activities with on-chain items, experience, and game currencies. Game designers can specify rewards using spreadsheets. Game developers can POST rewards to the Moonstream Engine API.
-5. [Leaderboards]() - An API that makes it easy for game developers to combine on- and off-chain game activity to assign points to players.
-6. [Query API]() - A REST API that allows game developers and game designers to monitor their on-chain game economy in real time.
+1. [Crafting]() - An on-chain crafting system that web3 games can use to represent the workings of their economies directly on the blockchain.
+1. [Dropper]() - A tool which allows game designers and game developers to reward their players for in-game activities with on-chain items, experience, and game currencies. Game designers can specify rewards using spreadsheets. Game developers can POST rewards to the Moonstream Engine API.
+1. [Leaderboards]() - An API that makes it easy for game developers to combine on- and off-chain game activity to assign points to players.
+1. [Query API]() - A REST API that allows game developers and game designers to monitor their on-chain game economy in real time.
 
 
 ## Tooling
@@ -32,7 +53,7 @@ In addition to the Moonstream web3 game engine, Moonstream also maintains severa
 
 1. [`moonworm`]() - A code generator which makes it easy for anyone to analyze and interact with Ethereum smart contracts.
 
-2. [Inspector Facet]() - A tool which makes it easy for anyone to inspect upgradable smart contracts implementing the [EIP2535 Diamond](https://eips.ethereum.org/EIPS/eip-2535) standard, which is very useful for web3 game projects.
+1. [Inspector Facet]() - A tool which makes it easy for anyone to inspect upgradable smart contracts implementing the [EIP2535 Diamond](https://eips.ethereum.org/EIPS/eip-2535) standard, which is very useful for web3 game projects.
 
 
 ## Supported blockchains
