@@ -37,6 +37,21 @@ Terminus is compatible with any marketplace that supports the EIP1155 Multi-Toke
 The largest Terminus marketplace on Open Sea is currently [Crypto Unicorns: Item Marketplace](https://opensea.io/collection/crypto-unicorns-items-marketplace),
 with over 2000 ETH in transaction volume.
 
+### Terminus for Access Control
+
+Terminus is also very useful as a mechanism to control access to functionality on smart contracts and
+in APIs.
+
+Smart contracts can use the `holdsPoolToken` and `spendsPoolToken` modifiers from our `TerminusPermissions`
+contracts to gate access to methods.
+
+Some portions of the Moonstream Engine API use a configurable Terminus pool to gate access to administrative
+functionality.
+
+The advantage that Terminus-based access control has over address whitelists is that it makes it easy to
+rotate accounts. Instead of submitting whitelist and blacklist transactions against multiple contracts,
+administrators can simply burn and mint batches of Terminus tokens against the same Terminus contract.
+
 ## The Moonstream Engine
 
 The Moonstream Engine provides:
