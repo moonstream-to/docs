@@ -1,5 +1,18 @@
 site_name: "The Moonstream Docs"
 
+nav:
+  - "Welcome!": index.md
+  - "Terminus": terminus.md
+  - "The Moonstream Engine":
+    - "Query API": engine/query-api.md
+    - "Leaderboards": engine/leaderboards.md
+    - "Dropper": engine/dropper.md
+    - "Crafting": engine/crafting.md
+    - "Game mechanics": engine/mechanics.md
+  - "Tooling":
+    - "Inspector Facet": tooling/inspector-facet.md
+    - "Moonworm": tooling/moonworm.md
+
 theme:
   name: material
   logo: assets/moonstream-logo.png
