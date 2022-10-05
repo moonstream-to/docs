@@ -2,9 +2,9 @@
 
 ## What is Terminus?
 
-Terminus is a smart contract standard. It is a modification to the [EIP1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)
+Terminus is a smart contract standard. It is a modification to the [EIP-1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)
 
-Terminus extends EIP1155 by allowing game designers and game developers to define *transferability*, *burnability*, and even supply limits at the level of token IDs.
+Terminus extends EIP-1155 by allowing game designers and game developers to define *transferability*, *burnability*, and even supply limits at the level of token IDs.
 
 It also allows game designers and game developers to delegate minting and burning capabilities on individual
 token IDs to other accounts or to other smart contracts.

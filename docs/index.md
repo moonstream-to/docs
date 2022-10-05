@@ -15,7 +15,7 @@ with the blockchain, manage your on-chain economy, and keep your players enterta
 
 ## Terminus
 
-The [Terminus](./terminus.md) smart contract standard is a modification of the [EIP1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)
+The [Terminus](./terminus.md) smart contract standard is a modification of the [EIP-1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)
 designed to represent items, achievements, and experience in web3 games. Terminus is also useful as an
 access control mechanism for smart contracts and APIs.
 
@@ -33,7 +33,7 @@ The Moonstream Engine provides:
 
 In addition to the Moonstream web3 game engine, Moonstream also maintains several tools for the benefit of the web3 developer community:
 
-1. [Inspector Facet](tooling/inspector-facet.md) - A tool which makes it easy for anyone to inspect upgradable smart contracts implementing the [EIP2535 Diamond](https://eips.ethereum.org/EIPS/eip-2535) standard, which is very useful for web3 game projects.
+1. [Inspector Facet](tooling/inspector-facet.md) - A tool which makes it easy for anyone to inspect upgradable smart contracts implementing the [EIP-2535 Diamond](https://eips.ethereum.org/EIPS/eip-2535) standard, which is very useful for web3 game projects.
 
 1. [`moonworm`](tooling/moonworm.md) - A code generator which makes it easy for anyone to analyze and interact with Ethereum smart contracts.
 
