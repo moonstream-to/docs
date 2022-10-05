@@ -2,16 +2,16 @@
 
 ## What is Moonstream?
 
-Moonstream is an open source web3 game engine. It makes it easy for game developers and game
-designers to integrate their games with blockchains.
+Moonstream is economic infrastructure for web3 games. It makes it easy to manage blockchain game economies.
 
-Designing a game is hard enough. Designing a web3 game is _even harder_. One of the biggest challenges
-for web3 game designers and game developers is that putting your game economy on-chain turns it into
-a real economy. This takes control of your game economy away from you, the game designer, and transfers this control
-to your players and to the web3 community at large.
+One of the biggest challenges for web3 game designers and game developers is that putting your game economy on-chain turns it into
+a real economy. This takes control of your game economy away from you, the game designer. Your community is in charge now:
 
-If you are building a web3 game, the Moonstream engine provides you the tools you need to integrate your game
-with the blockchain, manage your on-chain economy, and keep your players entertained.
+<center>![Meme: Look at me. I'm the captain now.](https://s3.amazonaws.com/static.simiotics.com/memes/im-the-captain-now.gif)</center>
+
+This means that you can no longer freely manipulate your game economy to improve game balance and increase the fun factor for your players.
+
+Moonstream gives you the tools you need to keep your economy healthy and sustainable. And to make sure your players are having fun.
 
 ## Terminus
 
@@ -23,11 +23,11 @@ access control mechanism for smart contracts and APIs.
 
 The Moonstream Engine provides:
 
-1. [Mechanics]() - A library of game mechanics that game developers and game designers can compose to build fully on-chain game experiences for their player community.
-1. [Crafting]() - An on-chain crafting system that web3 games can use to represent the workings of their economies directly on the blockchain.
-1. [Dropper]() - A tool which allows game designers and game developers to reward their players for in-game activities with on-chain items, experience, and game currencies. Game designers can specify rewards using spreadsheets. Game developers can POST rewards to the Moonstream Engine API.
-1. [Leaderboards]() - An API that makes it easy for game developers to combine on- and off-chain game activity to assign points to players.
-1. [Query API]() - A REST API that allows game developers and game designers to monitor their on-chain game economy in real time.
+1. [Query API](engine/query-api.md) - A REST API that allows game developers and game designers to monitor their on-chain game economy in real time.
+1. [Leaderboards](engine/leaderboards.md) - An API that makes it easy for game developers to combine on- and off-chain game activity to assign points to players.
+1. [Dropper](engine/dropper.md) - A tool which allows game designers and game developers to reward their players for in-game activities with on-chain items, experience, and game currencies. Game designers can specify rewards using spreadsheets. Game developers can POST rewards to the Moonstream Engine API.
+1. [Crafting](engine/crafting.md) - An on-chain crafting system that web3 games can use to represent the workings of their economies directly on the blockchain.
+1. [Game mechanics](engine/mechanics.md) - A library of game mechanics that game developers and game designers can compose to build fully on-chain game experiences for their player community.
 
 ## Tooling
 
@@ -53,11 +53,13 @@ Moonstream.to also offers the Moonstream game engine as a hosted service, availa
 We do _not_ believe in forcing our views upon our users. We do not use [copyleft licenses](https://en.wikipedia.org/wiki/Copyleft). We favor the
 much more permissive [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-We do _not_ believe in the [open core business model](https://en.wikipedia.org/wiki/Open-core_model). Every feature available on Moonstream.to is
-also freely available to anyone who chooses to host their own instance of the Moonstream Engine.
+We do _not_ believe in the [open core business model](https://en.wikipedia.org/wiki/Open-core_model).
+Every feature available on Moonstream.to is also freely available to anyone who chooses to host their own instance of the Moonstream Engine.
 
 The only code that we write that is _not_ open source is the code related to our security operations. You can read more about this decision in our
-policy document: [Open tooling. Hidden Operations.](https://medium.com/@moonstream/open-tooling-hidden-operations-c2033f17b33e)
+policy document:
+
+> [Open tooling. Hidden Operations.](https://medium.com/@moonstream/open-tooling-hidden-operations-c2033f17b33e)
 
 ## Tech stack
 

@@ -1,3 +1,11 @@
+---
+tags:
+  - terminus
+  - EIP-1155
+  - smart contract
+  - standard
+---
+
 # Terminus
 
 ## What is Terminus?
@@ -18,7 +26,7 @@ Terminus is useful to game developers because it allows them to represent the fo
 1. Consumable tokens: Transferable tokens which are burned by the game contract on use
 1. Artifacts: Transferable tokens with a low maximum supply
 
-Terminus is compatible with any marketplace that supports the EIP1155 Multi-Token Standard, such as
+Terminus is compatible with any marketplace that supports the EIP-1155 Multi-Token Standard, such as
 [Open Sea](https://opensea.io).
 The largest Terminus marketplace on Open Sea is currently [Crypto Unicorns: Item Marketplace](https://opensea.io/collection/crypto-unicorns-items-marketplace),
 with over 2000 ETH in transaction volume.

@@ -28,7 +28,7 @@ tags:
   - python
   - library
   - cli
-  - EIP2535
+  - EIP-2535
 ---
 
 
