@@ -1,3 +1,10 @@
+---
+tags:
+  - alpha
+  - api
+  - data
+---
+
 # Query API
 
 Moonstream's Query API makes it possible to query blockchain events, transactions, method calls, and
@@ -21,29 +28,29 @@ The Query API is implemented in the following repository:
 
 To use the Query API, a user must first:
 
-1. Create a subscription using the Moonstream API
+1.  Create a subscription using the Moonstream API
 
-1. Create a Postgres SQL query that returns the information they want. They can use Postgres variables
-in the query, and pass in values for those variables from the API.
+1.  Create a Postgres SQL query that returns the information they want. They can use Postgres variables
+    in the query, and pass in values for those variables from the API.
 
-1. Make an HTTP request in the [format below](#request-format).
+1.  Make an HTTP request in the [format below](#request-format).
 
-1. This request returns an [AWS S3 presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html) at which you can access the data from an S3 bucket.
-To work with the presigned URL:
+1.  This request returns an [AWS S3 presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html) at which you can access the data from an S3 bucket.
+    To work with the presigned URL:
 
-    1. Store a `request_timestamp` before the `update_data` request.
+        1. Store a `request_timestamp` before the `update_data` request.
 
-    1. Make an HTTP request of the form of `Codeblock 1` and receive a `presigned_url` for S3 access.
+        1. Make an HTTP request of the form of `Codeblock 1` and receive a `presigned_url` for S3 access.
 
-    1. `GET presigned_url` and set an `If-Modified-Since: request_timestamp` header on your `GET` request. The possible status codes here are:
+        1. `GET presigned_url` and set an `If-Modified-Since: request_timestamp` header on your `GET` request. The possible status codes here are:
 
-        1. `404` - means this was the first time this query was called and data has not been pushed to S3 bucket yet
+            1. `404` - means this was the first time this query was called and data has not been pushed to S3 bucket yet
 
-        1. `304` - data older then If-Modified-Since and has not yet been updated
+            1. `304` - data older then If-Modified-Since and has not yet been updated
 
-        1. `200` - data is updated, read response, have fun!
+            1. `200` - data is updated, read response, have fun!
 
-    1. See the [example below for a Python implementation of this workflow](#example-a-python-script-to-read-data-from-the-query-api).
+        1. See the [example below for a Python implementation of this workflow](#example-a-python-script-to-read-data-from-the-query-api).
 
 ### Request format
 
