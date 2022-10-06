@@ -9,7 +9,7 @@ a real economy. This takes control of your game economy away from you, the game 
 
 <center>![Meme: Look at me. I'm the captain now.](https://s3.amazonaws.com/static.simiotics.com/memes/im-the-captain-now.gif)</center>
 
-This means that you can no longer freely manipulate your game economy to improve game balance and increase the fun factor for your players.
+This means that you can no longer freely manipulate your game economy to improve your game.
 
 Moonstream gives you the tools you need to keep your economy healthy and sustainable. And to make sure your players are having fun.
 
@@ -96,5 +96,5 @@ Moonstream API instances are stateless and can be managed easily even by individ
 
 ## Administration
 
-All our technology is designed to be deployed on Linux servers, with little preference on where those servers are hosted.
-We do not use docker in production, and only use it to run integration tests of our services.
+All our technology is designed to be deployed on Linux servers, with little preference about where those servers are hosted.
+We do not use docker in production. We only use it to run integration tests of our services.
