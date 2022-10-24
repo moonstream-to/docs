@@ -20,7 +20,7 @@ it is important to first familiarize yourself with EIP-2535.
 
 ### Existing mechanics
 
-- [Lootbox](./mechanics/lootbox.md) - random reward distribution
+- [Lootbox](./lootbox.md) - random reward distribution
 - [Garden of Forking Paths](./garden-of-forking-paths.md) - multiplayer choose your own adventure
 
 ### Upcoming mechanics
