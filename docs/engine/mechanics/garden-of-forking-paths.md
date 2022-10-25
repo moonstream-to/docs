@@ -38,7 +38,7 @@ In our experiences playing and running the Garden of Forking Paths, the fun has 
 their game universe through play.
 
 
-## Roles: Players and game masters
+## Players and game masters
 
 Garden of Forking Paths contracts have two kinds of users:
 
@@ -154,7 +154,7 @@ Garden of Forking Paths contracts have the following external/public methods:
 
 
 
-## Operations
+## Usage
 
 
 You can use the [`enginecli` command-line tool](https://github.com/bugout-dev/engine) to deploy and
@@ -287,10 +287,1140 @@ optional arguments:
 
 #### Setting stage rewards
 
-#### Setting the right path for a stage
+Game masters can register rewards for entering stages in a given session using the `setStageRewards` method:
+
+```solidity
+function setStageRewards(
+    uint256 sessionId,
+    uint256[] calldata stages,
+    address[] calldata terminusAddresses,
+    uint256[] calldata terminusPoolIds,
+    uint256[] calldata rewardAmounts
+) external onlyGameMaster {};
+```
+
+All rewards are assumed to be [Terminus](../../terminus.md) tokens. It is assumed that the Garden of Forking
+Paths contract has the ability to mint the reward tokens.
+
+Stage rewards can only be set on inactive sessions. This setting can be changed using `setSessionActive`.
+
+The arguments to `setStageRewards` are:
+
+1. `sessionId` - The ID of the session to set rewards for.
+2. `stages` - An array containing the numbers of the stages for which to set rewards. Note that stages are 1-indexed.
+3. `terminusAddresses` - An array of addresses to the Terminus contracts from which the rewards for the corresponding stage
+are minted. This array must be equal in length to the `stages` array.
+4. `terminusPoolIds` - An array of Terminus pool IDs on the corresponding Terminus contracts that represent
+the rewards for the corresponding stages. This array must be equal in length to the `stages` and `terminusAddresses`
+arrays.
+5. `rewardAmounts` - The number of tokens from the corresponding Terminus pools that are minted as rewards for
+the corresponding stages. This array must be equal in length to the `stages`, `terminusAddresses`, and `terminusPoolIds`
+arrays.
+
+Game masters may use the `enginecli` tool to set stage rewards at their command lines:
+
+```
+$ enginecli gofp set-stage-rewards --help
+
+usage: enginecli set-stage-rewards [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+                                   [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id SESSION_ID
+                                   --stages STAGES [STAGES ...] --terminus-addresses TERMINUS_ADDRESSES [TERMINUS_ADDRESSES ...] --terminus-pool-ids TERMINUS_POOL_IDS [TERMINUS_POOL_IDS ...]
+                                   --reward-amounts REWARD_AMOUNTS [REWARD_AMOUNTS ...]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --network NETWORK     Name of brownie network to connect to
+  --address ADDRESS     Address of deployed contract to connect to
+  --sender SENDER       Path to keystore file for transaction sender
+  --password PASSWORD   Password to keystore file (if you do not provide it, you will be prompted for it)
+  --gas-price GAS_PRICE
+                        Gas price at which to submit transaction
+  --max-fee-per-gas MAX_FEE_PER_GAS
+                        Max fee per gas for EIP1559 transactions
+  --max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS
+                        Max priority fee per gas for EIP1559 transactions
+  --confirmations CONFIRMATIONS
+                        Number of confirmations to await before considering a transaction completed
+  --nonce NONCE         Nonce for the transaction (optional)
+  --value VALUE         Value of the transaction in wei(optional)
+  --verbose             Print verbose output
+  --session-id SESSION_ID
+                        Type: uint256
+  --stages STAGES [STAGES ...]
+                        Type: uint256[]
+  --terminus-addresses TERMINUS_ADDRESSES [TERMINUS_ADDRESSES ...]
+                        Type: address[]
+  --terminus-pool-ids TERMINUS_POOL_IDS [TERMINUS_POOL_IDS ...]
+                        Type: uint256[]
+  --reward-amounts REWARD_AMOUNTS [REWARD_AMOUNTS ...]
+                        Type: uint256[]
+```
+
+#### Setting the correct path for a stage
+
+Game masters can set the correct path for the current stage in a given session using the  `setCorrectPathForStage` method:
+
+```solidity
+function setCorrectPathForStage(
+    uint256 sessionId,
+    uint256 stage,
+    uint256 path,
+    bool setIsChoosingActive
+) external onlyGameMaster {};
+```
+
+Correct paths can only be set for sessions in which choosing is inactive. This setting can be changed
+using `setSessionChoosingActive`.
+
+The arguments to `setCorrectPathForStage` are:
+
+1. `sessionId` - ID for the session in which you want to set the correct path for a stage.
+2. `stage` - Number of the stage for which you want to set the correct path.
+3. `path` - Path that should be designated as correct for the given stage.
+4. `setChoosingActive` - Set to `true` to allow NFTs to choose paths in the *next* stage as soon as this
+transaction is successfully completed.
+
+Game masters may use the `enginecli` tool to set stage correct paths for a stage at their command lines:
+
+```
+$ enginecli gofp set-correct-path-for-stage --help
+usage: enginecli set-correct-path-for-stage [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+                                            [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
+                                            SESSION_ID --stage STAGE --path PATH --set-is-choosing-active SET_IS_CHOOSING_ACTIVE
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --network NETWORK     Name of brownie network to connect to
+  --address ADDRESS     Address of deployed contract to connect to
+  --sender SENDER       Path to keystore file for transaction sender
+  --password PASSWORD   Password to keystore file (if you do not provide it, you will be prompted for it)
+  --gas-price GAS_PRICE
+                        Gas price at which to submit transaction
+  --max-fee-per-gas MAX_FEE_PER_GAS
+                        Max fee per gas for EIP1559 transactions
+  --max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS
+                        Max priority fee per gas for EIP1559 transactions
+  --confirmations CONFIRMATIONS
+                        Number of confirmations to await before considering a transaction completed
+  --nonce NONCE         Nonce for the transaction (optional)
+  --value VALUE         Value of the transaction in wei(optional)
+  --verbose             Print verbose output
+  --session-id SESSION_ID
+                        Type: uint256
+  --stage STAGE         Type: uint256
+  --path PATH           Type: uint256
+  --set-is-choosing-active SET_IS_CHOOSING_ACTIVE
+                        Type: bool
+```
 
 ### Players
 
-#### Staking and unstaking
+#### Staking
+
+Players can stake their NFTs into a session using the `stakeTokensIntoSession` method:
+
+```solidity
+function stakeTokensIntoSession(
+    uint256 sessionId,
+    uint256[] calldata tokenIds
+) external diamondNonReentrant {};
+```
+
+Tokens can only be staked into active sessions.
+
+A token that was previously staked into the same session and subsequently unstaked may not be restaked
+into the same session.
+
+The arguments to `stakeTokensIntoSession` are:
+
+1. `sessionId` - The ID of the session to stake into.
+2. `tokenIds` - An array containing the `tokenId`s of the NFTs that the player would like to stake into the
+session. The tokens are assumed to be from the EIP-721 contract that was set as the `playerTokenAddress`
+on the session. You can view the session configuration using the `getSession` view method.
+
+Players may use the `enginecli` tool to stake tokens into a session at their command lines:
+
+```
+$ enginecli gofp stake-tokens-into-session --help
+
+usage: enginecli stake-tokens-into-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+                                           [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
+                                           SESSION_ID --token-ids TOKEN_IDS [TOKEN_IDS ...]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --network NETWORK     Name of brownie network to connect to
+  --address ADDRESS     Address of deployed contract to connect to
+  --sender SENDER       Path to keystore file for transaction sender
+  --password PASSWORD   Password to keystore file (if you do not provide it, you will be prompted for it)
+  --gas-price GAS_PRICE
+                        Gas price at which to submit transaction
+  --max-fee-per-gas MAX_FEE_PER_GAS
+                        Max fee per gas for EIP1559 transactions
+  --max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS
+                        Max priority fee per gas for EIP1559 transactions
+  --confirmations CONFIRMATIONS
+                        Number of confirmations to await before considering a transaction completed
+  --nonce NONCE         Nonce for the transaction (optional)
+  --value VALUE         Value of the transaction in wei(optional)
+  --verbose             Print verbose output
+  --session-id SESSION_ID
+                        Type: uint256
+  --token-ids TOKEN_IDS [TOKEN_IDS ...]
+                        Type: uint256[]
+```
+
+#### Unstaking
+
+Players can unstake their NFTs from a session using the `unstakeTokensFromSession` method:
+
+```solidity
+function unstakeTokensFromSession(
+    uint256 sessionId,
+    uint256[] calldata tokenIds
+) external diamondNonReentrant {};
+```
+
+Tokens can be unstaked from sessions at any time. Tokens can only be unstaked by their original staker.
+
+The arguments to `unstakeTokensFromSession` are:
+
+1. `sessionId` - The ID of the session to unstake from.
+2. `tokenIds` - An array containing the `tokenId`s of the NFTs that the player would like to unstake from the
+session. The tokens are assumed to be from the EIP-721 contract that was set as the `playerTokenAddress`
+on the session. You can view the session configuration using the `getSession` view method.
+
+Players may use the `enginecli` tool to unstake tokens from a session at their command lines:
+
+```
+$ enginecli gofp unstake-tokens-from-session --help
+
+usage: enginecli unstake-tokens-from-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+                                             [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
+                                             SESSION_ID --token-ids TOKEN_IDS [TOKEN_IDS ...]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --network NETWORK     Name of brownie network to connect to
+  --address ADDRESS     Address of deployed contract to connect to
+  --sender SENDER       Path to keystore file for transaction sender
+  --password PASSWORD   Password to keystore file (if you do not provide it, you will be prompted for it)
+  --gas-price GAS_PRICE
+                        Gas price at which to submit transaction
+  --max-fee-per-gas MAX_FEE_PER_GAS
+                        Max fee per gas for EIP1559 transactions
+  --max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS
+                        Max priority fee per gas for EIP1559 transactions
+  --confirmations CONFIRMATIONS
+                        Number of confirmations to await before considering a transaction completed
+  --nonce NONCE         Nonce for the transaction (optional)
+  --value VALUE         Value of the transaction in wei(optional)
+  --verbose             Print verbose output
+  --session-id SESSION_ID
+                        Type: uint256
+  --token-ids TOKEN_IDS [TOKEN_IDS ...]
+                        Type: uint256[]
+```
 
 #### Choosing paths
+
+Players can choose paths for their NFTs in the current stage of a session using the `chooseCurrentStagePaths` method:
+
+```solidity
+function chooseCurrentStagePaths(
+    uint256 sessionId,
+    uint256[] memory tokenIds,
+    uint256[] memory paths
+) external diamondNonReentrant {};
+```
+
+Tokens can only choose paths if choosing is active for the session.
+
+The arguments to `chooseCurrentStagePaths` are:
+
+1. `sessionId` - The ID of the session to choose paths in.
+2. `tokenIds` - An array containing the `tokenId`s of the NFTs that the player would like to choose paths
+for. The tokens are assumed to be from the EIP-721 contract that was set as the `playerTokenAddress`
+on the session. You can view the session configuration using the `getSession` view method.
+3. `paths` - An array of path choices per `tokenId` in the `tokenIds` array. This array should have the
+same length as the `tokenIds` array. Remember that paths are 1-indexed.
+
+Players may use the `enginecli` tool to choose paths for their NFTs at their command lines:
+
+```
+$ enginecli gofp choose-current-stage-paths --help
+
+usage: enginecli choose-current-stage-paths [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+                                            [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
+                                            SESSION_ID --token-ids TOKEN_IDS [TOKEN_IDS ...] --paths PATHS [PATHS ...]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --network NETWORK     Name of brownie network to connect to
+  --address ADDRESS     Address of deployed contract to connect to
+  --sender SENDER       Path to keystore file for transaction sender
+  --password PASSWORD   Password to keystore file (if you do not provide it, you will be prompted for it)
+  --gas-price GAS_PRICE
+                        Gas price at which to submit transaction
+  --max-fee-per-gas MAX_FEE_PER_GAS
+                        Max fee per gas for EIP1559 transactions
+  --max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS
+                        Max priority fee per gas for EIP1559 transactions
+  --confirmations CONFIRMATIONS
+                        Number of confirmations to await before considering a transaction completed
+  --nonce NONCE         Nonce for the transaction (optional)
+  --value VALUE         Value of the transaction in wei(optional)
+  --verbose             Print verbose output
+  --session-id SESSION_ID
+                        Type: uint256
+  --token-ids TOKEN_IDS [TOKEN_IDS ...]
+                        Type: uint256[]
+  --paths PATHS [PATHS ...]
+                        Type: uint256[]
+```
+
+### ABI
+
+```json
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "stage",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "path",
+        "type": "uint256"
+      }
+    ],
+    "name": "PathChosen",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "stage",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "path",
+        "type": "uint256"
+      }
+    ],
+    "name": "PathRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      }
+    ],
+    "name": "SessionActivated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isChoosingActive",
+        "type": "bool"
+      }
+    ],
+    "name": "SessionChoosingActivated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "playerTokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "paymentTokenAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "paymentAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "uri",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "active",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isForgiving",
+        "type": "bool"
+      }
+    ],
+    "name": "SessionCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "uri",
+        "type": "string"
+      }
+    ],
+    "name": "SessionUriChanged",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "adminTerminusInfo",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "paths",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "chooseCurrentStagePaths",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "playerTokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "paymentTokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "paymentAmount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "uri",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "stages",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bool",
+        "name": "isForgiving",
+        "type": "bool"
+      }
+    ],
+    "name": "createSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stage",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCorrectPathForStage",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCurrentStage",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stage",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPathChoice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getSession",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "playerTokenAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "paymentTokenAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "paymentAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isChoosingActive",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "stages",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "isForgiving",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Session",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getSessionTokenStakeGuard",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stage",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStageReward",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "terminusAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "terminusPoolId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rewardAmount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct StageReward",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "nftAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStakedTokenInfo",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "adminTerminusAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "adminTerminusPoolID",
+        "type": "uint256"
+      }
+    ],
+    "name": "init",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "numSessions",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      }
+    ],
+    "name": "numTokensStakedIntoSession",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "onERC1155BatchReceived",
+    "outputs": [
+      {
+        "internalType": "bytes4",
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "onERC1155Received",
+    "outputs": [
+      {
+        "internalType": "bytes4",
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "onERC721Received",
+    "outputs": [
+      {
+        "internalType": "bytes4",
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "stage",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "path",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "setIsChoosingActive",
+        "type": "bool"
+      }
+    ],
+    "name": "setCorrectPathForStage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isActive",
+        "type": "bool"
+      }
+    ],
+    "name": "setSessionActive",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isChoosingActive",
+        "type": "bool"
+      }
+    ],
+    "name": "setSessionChoosingActive",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "uri",
+        "type": "string"
+      }
+    ],
+    "name": "setSessionUri",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "stages",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "terminusAddresses",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "terminusPoolIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "rewardAmounts",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "setStageRewards",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "stakeTokensIntoSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "staker",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenOfStakerInSessionByIndex",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "sessionId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "tokenIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "unstakeTokensFromSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
+```
