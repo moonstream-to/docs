@@ -8,7 +8,7 @@ nav:
     - "Leaderboards": engine/leaderboards.md
     - "Dropper": engine/dropper.md
     - "Crafting": engine/crafting.md
-    - "Game mechanics": engine/mechanics.md
+    - "Game mechanics": engine/mechanics/
   - "Tooling":
     - "Inspector Facet": tooling/inspector-facet.md
     - "Moonworm": tooling/moonworm.md
