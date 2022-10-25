@@ -15,7 +15,7 @@ tags:
 
 # The Garden of Forking Paths
 
-The Garden of Forking Paths is a multiplayer choose your own adventure mechanic.
+The Garden of Forking Paths (GOFP) is a multiplayer choose your own adventure mechanic.
 
 It draws inspiration from:
 
@@ -26,7 +26,7 @@ story by [Jorge Luis Borges](https://en.wikipedia.org/wiki/Jorge_Luis_Borges).
 
 ## Philosophy
 
-We care deeply about our game mechanics being *fun* for players. The Garden of Forking Paths allows
+We care deeply about our game mechanics being *fun* for players. The GOFP allows
 game communities to collaboratively create the lore for their game universe.
 
 All the rules dictating what players can do are represented on the smart contract, but we place no restrictions
@@ -34,40 +34,40 @@ on game masters for how they determine the canonical path through their adventur
 to use any mechanism they like to resolve paths. From choosing randomly, to choosing based on player votes, to
 choosing by fiat. It is not our place to impose any constraints on game masters.
 
-In our experiences playing and running the Garden of Forking Paths, the fun has been in players creating the lore of
+In our experiences playing and running the GOFP, the fun has been in players creating the lore of
 their game universe through play.
 
 
 ## Players and game masters
 
-Garden of Forking Paths contracts have two kinds of users:
+GOFP contracts have two kinds of users:
 
 1. Players
 2. Game masters
 
-The Garden of Forking Paths allows players to experience adventures using their NFTs. Game masters
+The GOFP allows players to experience adventures using their NFTs. Game masters
 are the ones responsible for creating and running these adventures.
 
-When a Garden of Forking Paths contract is set up, the deployer specifies a [Terminus](../../terminus.md)
+When a GOFP contract is set up, the deployer specifies a [Terminus](../../terminus.md)
 badge which defines whether or not an account is a game master. Any account with that badge is treated as
 a game master. Any account without that badge is treated as a player.
 
-Garden of Forking Paths contracts do not care if a game master account represents a human, a bot, or
+GOFP contracts do not care if a game master account represents a human, a bot, or
 even a smart contract. One of our principles of composability is that this shouldn't matter. All that
 matters is that they have a badge signifying their authority to run adventures for players.
 
 ## Gameplay
 
-Garden of Forking Paths allows game masters to run adventures for players. Each adventure is represented
+GOFP allows game masters to run adventures for players. Each adventure is represented
 by a *session*.
 
 Each session has an associated [EIP-721](https://eips.ethereum.org/EIPS/eip-721) contract. The tokens
 from that contract are the characters that the player can use in the adventure. When a player elects to
-participate in an adventure with one of their NFTs, that NFT is staked into the Garden of Forking Paths contract.
-This means that, ownership of the NFT is transferred to the Garden of Forking Paths contract during the
+participate in an adventure with one of their NFTs, that NFT is staked into the GOFP contract.
+This means that, ownership of the NFT is transferred to the GOFP contract during the
 session.
 
-Whenever they want, players can unstake their NFTs from a Garden of Forking Paths session. NFTs cannot
+Whenever they want, players can unstake their NFTs from a GOFP session. NFTs cannot
 participate in sessions that they were previously unstaked from.
 
 Game masters can ask players to pay to send their NFTs into a session. Payments are specified as an [EIP-20](https://eips.ethereum.org/EIPS/eip-20)
@@ -94,7 +94,7 @@ Game masters may also associate a [Terminus](../../terminus.md) reward with each
 an associated reward, that token is minted to the staker of every NFT which makes choice at that stage
 after making the correct choice at the previous stage.
 
-Garden of Forking Paths sessions can be *forgiving* or *unforgiving*. In an unforgiving session, player
+GOFP sessions can be *forgiving* or *unforgiving*. In an unforgiving session, player
 tokens which made an incorrect choice in the previous stage may not make a choice in the current stage
 (or for any stage in the rest of the session). In a forgiving session, any player token may make a choice
 at the current stage but *only* the tokens which chose correctly in the previous stage receive stage
@@ -102,7 +102,7 @@ rewards.
 
 ## Contract
 
-The Garden of Forking Paths mechanic is implemented by the [`GOFPFacet` smart contract](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol).
+The GOFP mechanic is implemented by the [`GOFPFacet` smart contract](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol).
 
 This contract can be used as a facet on an [EIP-2535 proxy contract](https://eips.ethereum.org/EIPS/eip-2535).
 It can also be deployed as a standalone contract. Whether you use a proxy or deploy as a standalone depends
@@ -112,12 +112,12 @@ on your use case.
 
 #### `onlyGameMaster`
 
-The Garden of Forking Paths smart contract defines an `onlyGameMaster` modifier. Smart contract methods
+The GOFP smart contract defines an `onlyGameMaster` modifier. Smart contract methods
 with this modifier can only be invoked by accounts that hold a game master badge.
 
 #### `diamondNonReentrant`
 
-The Garden of Forking Paths can be used to provide method implementations for [EIP-2535 Diamond proxies](https://eips.ethereum.org/EIPS/eip-2535).
+The GOFP can be used to provide method implementations for [EIP-2535 Diamond proxies](https://eips.ethereum.org/EIPS/eip-2535).
 
 The `diamondNonReentrant` modifier is similar to the Open Zeppelin `nonReentrant` modifier but uses a
 predefined storage slot to make it suitable for use on Diamond contracts.
@@ -126,14 +126,14 @@ The implementation is in [`DiamondReentrancyGuard.sol`](https://github.com/bugou
 
 ### Methods
 
-Garden of Forking Paths contracts have the following external/public methods:
+GOFP contracts have the following external/public methods:
 
 | Method | Description | returns | method visibility | `onlyGameMaster`? | `diamondNonReentrant`? |
 |--------|-------------|---------|-------------------|-------------------|------------------------|
-| `init` | Initializes a Garden of Forking Paths contract by setting the Terminus address and pool ID for its game master badge. Only the contract owner can call this method. | None | `external` | No | No |
-| `getSession` | Retrieves information about a Garden of Forking Paths game session. | [`Session`](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol) | `external view` | No | No |
-| `adminTerminusInfo` | Returns the Terminus address and pool ID for the Game Master badge registered on the Garden of Forking Paths contract. | (`address`, `uint256`) | `external view` | No | No |
-| `numSessions` | Returns the number of game sessions that have been created on the Garden of Forking Paths contract. | `uint256` | `external view` | No | No |
+| `init` | Initializes a GOFP contract by setting the Terminus address and pool ID for its game master badge. Only the contract owner can call this method. | None | `external` | No | No |
+| `getSession` | Retrieves information about a GOFP game session. | [`Session`](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol) | `external view` | No | No |
+| `adminTerminusInfo` | Returns the Terminus address and pool ID for the Game Master badge registered on the GOFP contract. | (`address`, `uint256`) | `external view` | No | No |
+| `numSessions` | Returns the number of game sessions that have been created on the GOFP contract. | `uint256` | `external view` | No | No |
 | `createSession` | Allows game masters to create a new game session. | None | `external` | Yes | No |
 | `getStageReward` | Returns the reward for a given stage in a given session. | [`StageReward`](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol) | `external view` | No | No |
 | `setStageRewards` | Allows game masters to set rewards for any number of stages in a given session. | None | `external` | Yes | No |
@@ -142,7 +142,7 @@ Garden of Forking Paths contracts have the following external/public methods:
 | `setCorrectPathForStage` | Allows game masters to set the correct path for a specific stage in a specific session. | None | `external` | Yes | No |
 | `setSessionChoosingActive`| Allows game masters to allow and disallow NFTs from choosing paths in the current stage of a given session. | None | `external` | Yes | No |
 | `setSessionUri`| Allows game masters to associate a URI with a session. This URI can contain JSON metadata. | None | `external` | Yes | No |
-| `getStakedTokenInfo` | If a given NFT is staked into any Garden of Forking Paths session, this method allows anyone to see which session it is in and who staked it there. | (`uint256`, `address`) | `external view` | No | No |
+| `getStakedTokenInfo` | If a given NFT is staked into any GOFP session, this method allows anyone to see which session it is in and who staked it there. | (`uint256`, `address`) | `external view` | No | No |
 | `getSessionTokenStakeGuard`| Allows anyone to see if a given NFT was *ever* staked into a given session. The NFT is specified only by its `tokenId` and is assumed to come from the NFT contract associated with the given session. | `bool` | `external view` | No | No |
 | `numTokensStakedIntoSession` | Allows anyone to see how many tokens a given stakers has staked into a given session. | `uint256` | `external view` | No | No |
 | `tokenOfStakerInSessionByIndex` | Allows anyone to enumerate over the tokens that a given staker has staked into a given session. The staked tokens are 1-indexed. | `uint256` | `external view` | No | No |
@@ -158,9 +158,9 @@ Garden of Forking Paths contracts have the following external/public methods:
 
 
 You can use the [`enginecli` command-line tool](https://github.com/bugout-dev/engine) to deploy and
-interact with Garden of Forking Paths contracts.
+interact with GOFP contracts.
 
-### Deploying a Garden of Forking Paths contract
+### Deploying a GOFP contract
 
 ```bash
 enginecli core gofp-gogogo \
@@ -208,13 +208,13 @@ Once this deployment is complete, a JSON object will be printed to `stdout`. The
 ```
 
 The deployment sets up an [EIP-2535 proxy contract](https://eips.ethereum.org/EIPS/eip-2535). The value
-at `.contracts.Diamond` is the address of the Garden of Forking Paths contract.
+at `.contracts.Diamond` is the address of the GOFP contract.
 
 ### Game masters
 
 #### Creating a session
 
-Only game masters can create sessions on a Garden of Forking Paths contract. They can do this by invoking
+Only game masters can create sessions on a GOFP contract. They can do this by invoking
 the `createSesssion` method, which has the following signature:
 
 ```solidity
