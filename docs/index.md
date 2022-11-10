@@ -33,7 +33,7 @@ The Moonstream Engine provides:
 
 The Moonstream Entity provides:
 
-1. [Schemes](entity/schemes.md) - Examples of Entity schemes.
+1. [Overview](entity/overview.md) - Moonstream Entity overview.
 
 ## Tooling
 
