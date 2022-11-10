@@ -7,7 +7,7 @@ tags:
     - schemes
 ---
 
-# Overview
+# Entity API
 
 During game drops, providing additional information in leaderboards, for internal usage of crypto projects who want their users to pass KYC and legal things there was a problem to bridge the blockchain and physical world.
 

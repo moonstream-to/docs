@@ -33,7 +33,7 @@ The Moonstream Engine provides:
 
 The Moonstream Entity provides:
 
-1. [Overview](entity/overview.md) - Moonstream Entity overview.
+1. [Entity API](entity/entity-api.md) - Moonstream Entity API overview.
 
 ## Tooling
 
