@@ -9,7 +9,7 @@ tags:
 
 # Entity API
 
-During game drops, providing additional information in leaderboards, for internal usage of crypto projects who want their users to pass KYC and legal things there was a problem to bridge the blockchain and physical world.
+Entities are useful during game air drops, it's providing additional information in leaderboards, for internal usage of crypto projects who want their users to pass KYC and legal things there was a problem to bridge the blockchain and physical world.
 
 Current document describes how to store user identity data with Moonstream infrastructure for different use cases:
 
