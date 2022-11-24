@@ -9,8 +9,7 @@ nav:
     - "Dropper": engine/dropper.md
     - "Crafting": engine/crafting.md
     - "Game mechanics": engine/mechanics/
-  - "The Moonstream Entity":
-    - "Entity API": entity/entity-api.md
+    - "Entity API": engine/entity-api.md
   - "Tooling":
     - "Inspector Facet": tooling/inspector-facet.md
     - "Moonworm": tooling/moonworm.md
