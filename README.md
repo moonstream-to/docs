@@ -25,7 +25,7 @@ mkdocs serve
 
 This will host the docs site at http://localhost:8000
 
-Override this using the `--dev-addr` argument as follows: `--dev-addr localhost:1337`.
+Override this using the `--dev-addr` argument as follows: `--dev-addr 0.0.0.0:1337`.
 
 ## Production build
 

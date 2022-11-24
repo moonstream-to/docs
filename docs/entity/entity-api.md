@@ -24,16 +24,20 @@ This is not just a mapping between users (human-owned addresses) and identifying
 
 All your entities stored in collections and each new collection belongs only to you until you will provide access to you friends or team read/update/delete access.
 
-To work with entity you need to Create an account at https://moonstream.to, and attach your web3 address to be able to generate web3_token.
+To work with entity you need to Create an account at https://moonstream.to, and generate Bearer access token or attach your web3 address for web3_token. And store it as environment variable:
+
+```bash
+export MOONSTREAM_ACCESS_TOKEN="<your_generated_access_token>"
+```
 
 ### Creating collections via API
 
 Create collection `curl` request
 
 ```bash
-curl --request POST 'https://api.moonstream.to/entity/collection' \
-    --header 'Authorization: Web3 {{web3_token}}' \
-    --header 'Content-Type: application/json' \
+curl --request POST "https://api.moonstream.to/entity/collections" \
+    --header "Authorization: Bearer $MOONSTREAM_ACCESS_TOKEN" \
+    --header "Content-Type: application/json" \
     --data-raw '{
         "name": "Whitelist of November"
     }'
@@ -42,11 +46,17 @@ curl --request POST 'https://api.moonstream.to/entity/collection' \
 Get list of your collections
 
 ```bash
-curl --request GET 'https://api.moonstream.to/entity/collections' \
-    --header 'Authorization: Web3 {{web3_token}}'
+curl --request GET "https://api.moonstream.to/entity/collections" \
+    --header "Authorization: Bearer $MOONSTREAM_ACCESS_TOKEN"
 ```
 
 ### Creating entities
+
+Set collection you are working with:
+
+```bash
+export MOONSTREAM_ENTITY_COLLECTION_ID="<your_collection_id>"
+```
 
 For each entity there are 3 permanently required fields:
 
@@ -57,19 +67,19 @@ For each entity there are 3 permanently required fields:
 Depending on the use case, you can specify additional fields that will be required for your entities in certain collection. Then, you will be able to search across these fields with high precision compared to other fields.
 
 ```bash
-curl --location --request POST 'https://api.moonstream.to/entity/collections/{{collection_id}}/entities' \
---header 'Authorization: Web3 {{web3_token}}' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "Dark Forest burner",
-    "address": "0xe7f5cce56814f2155f05ef6311a6de55e4189ea5",
-    "blockchain": "xdai",
-    "required_fields": {
-        "discord": "https://discord.com/invite/K56VNUQGvA",
-        "company": true
-    },
-    "description": "Moonstream company burner address for Dark Forest game."
-}'
+curl --location --request POST "https://api.moonstream.to/entity/collections/$MOONSTREAM_ENTITY_COLLECTION_ID/entities" \
+    --header "Authorization: Bearer $MOONSTREAM_ACCESS_TOKEN" \
+    --header "Content-Type: application/json" \
+    --data-raw '{
+        "name": "Dark Forest burner",
+        "address": "0xe7f5cce56814f2155f05ef6311a6de55e4189ea5",
+        "blockchain": "xdai",
+        "required_fields": {
+            "discord": "https://discord.com/invite/K56VNUQGvA",
+            "organization": true
+        },
+        "description": "Moonstream organization burner address for Dark Forest game."
+    }'
 ```
 
 Also you can pass a list of entities to create them in bulk mode to url `https://api.moonstream.to/entity/collections/{{collection_id}}/bulk`
@@ -77,8 +87,23 @@ Also you can pass a list of entities to create them in bulk mode to url `https:/
 Get list of entities with request:
 
 ```bash
-curl --request GET 'https://api.moonstream.to/entity/collections/{{collection_id}}/entities' \
-    --header 'Authorization: Web3 {{web3_token}}'
+curl --request GET "https://api.moonstream.to/entity/collections/$MOONSTREAM_ENTITY_COLLECTION_ID/entities" \
+    --header "Authorization: Bearer $MOONSTREAM_ACCESS_TOKEN"
+```
+
+### Entity modifications
+
+Set entity you are working with:
+
+```bash
+export MOONSTREAM_ENTITY_ID="<your_entity_id>"
+```
+
+Delete entity:
+
+```bash
+curl --request DELETE "https://api.moonstream.to/entity/collections/$MOONSTREAM_ENTITY_COLLECTION_ID/entities/$MOONSTREAM_ENTITY_ID" \
+    --header "Authorization: Bearer $MOONSTREAM_ACCESS_TOKEN"
 ```
 
 ## Different use cases and schemes
@@ -89,7 +114,7 @@ Required keys: `name`, `address`, `blockchain`, `contract_deployer`, `support_er
 
 name: `Terminus`
 
-required:
+required fields:
 
 ```json
 {
@@ -101,7 +126,7 @@ required:
 }
 ```
 
-additional:
+additional fields:
 
 ```json
 {
@@ -116,7 +141,7 @@ Required keys: `address`, `name`, `blockchain`, `deployed_contract`. Other field
 
 title: `Moonstream dropper contract deployer`
 
-required:
+required fields:
 
 ```json
 {
@@ -127,7 +152,7 @@ required:
 }
 ```
 
-additional:
+additional fields:
 
 ```json
 {
