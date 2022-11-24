@@ -29,6 +29,12 @@ The Moonstream Engine provides:
 1. [Crafting](engine/crafting.md) - An on-chain crafting system that web3 games can use to represent the workings of their economies directly on the blockchain.
 1. [Game mechanics](engine/mechanics.md) - A library of game mechanics that game developers and game designers can compose to build fully on-chain game experiences for their player community.
 
+## Entity
+
+The Moonstream Entity provides:
+
+1. [Entity API](entity/entity-api.md) - Moonstream Entity API overview.
+
 ## Tooling
 
 In addition to the Moonstream web3 game engine, Moonstream also maintains several tools for the benefit of the web3 developer community:
