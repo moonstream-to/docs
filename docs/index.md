@@ -28,7 +28,7 @@ The Moonstream Engine provides:
 1. [Dropper](engine/dropper.md) - A tool which allows game designers and game developers to reward their players for in-game activities with on-chain items, experience, and game currencies. Game designers can specify rewards using spreadsheets. Game developers can POST rewards to the Moonstream Engine API.
 1. [Crafting](engine/crafting.md) - An on-chain crafting system that web3 games can use to represent the workings of their economies directly on the blockchain.
 1. [Game mechanics](engine/mechanics.md) - A library of game mechanics that game developers and game designers can compose to build fully on-chain game experiences for their player community.
-1. [Entity API](engine/entity-api.md) - Moonstream Entity API overview.
+1. [Entity](engine/entity.md) - Moonstream Entity overview, schemes, API and client library use cases.
 
 ## Tooling
 

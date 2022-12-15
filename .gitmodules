@@ -4,3 +4,6 @@
 [submodule "inspector-facet"]
 	path = inspector-facet
 	url = https://github.com/bugout-dev/inspector-facet.git
+[submodule "entity"]
+	path = entity
+	url = git@github.com:bugout-dev/entity.git
