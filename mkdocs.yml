@@ -9,7 +9,7 @@ nav:
     - "Dropper": engine/dropper.md
     - "Crafting": engine/crafting.md
     - "Game mechanics": engine/mechanics/
-    - "Entity API": engine/entity-api.md
+    - "Entity": engine/entity.md
   - "Tooling":
     - "Inspector Facet": tooling/inspector-facet.md
     - "Moonworm": tooling/moonworm.md
@@ -42,6 +42,7 @@ theme:
 plugins:
   - gen-files:
       scripts:
+        - generators/entity.py
         - generators/inspector_facet.py
   - git-revision-date-localized:
       enable_creation_date: true
@@ -86,5 +87,6 @@ edit_uri: edit/main/docs
 copyright: Copyright &copy; 2022 Moonstream.to
 
 watch:
+  - entity
   - moonworm
   - inspector-facet
