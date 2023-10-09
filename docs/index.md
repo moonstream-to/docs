@@ -11,37 +11,12 @@ a real economy. This takes control of your game economy away from you, the game 
 
 This means that you can no longer freely manipulate your game economy to improve your game.
 
-Moonstream gives you the tools you need to keep your economy healthy and sustainable. And to make sure your players are having fun.
-
-## Terminus
-
-The [Terminus](./terminus.md) smart contract standard is a modification of the [EIP-1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)
-designed to represent items, achievements, and experience in web3 games. Terminus is also useful as an
-access control mechanism for smart contracts and APIs.
-
-## The Moonstream Engine
-
-The Moonstream Engine provides:
-
-1. [Query API](engine/query-api.md) - A REST API that allows game developers and game designers to monitor their on-chain game economy in real time.
-1. [Leaderboards](engine/leaderboards.md) - An API that makes it easy for game developers to combine on- and off-chain game activity to assign points to players.
-1. [Dropper](engine/dropper.md) - A tool which allows game designers and game developers to reward their players for in-game activities with on-chain items, experience, and game currencies. Game designers can specify rewards using spreadsheets. Game developers can POST rewards to the Moonstream Engine API.
-1. [Crafting](engine/crafting.md) - An on-chain crafting system that web3 games can use to represent the workings of their economies directly on the blockchain.
-1. [Game mechanics](engine/mechanics.md) - A library of game mechanics that game developers and game designers can compose to build fully on-chain game experiences for their player community.
-1. [Entity](engine/entity.md) - Moonstream Entity overview, schemes, API and client library use cases.
-
-## Tooling
-
-In addition to the Moonstream web3 game engine, Moonstream also maintains several tools for the benefit of the web3 developer community:
-
-1. [Inspector Facet](tooling/inspector-facet.md) - A tool which makes it easy for anyone to inspect upgradable smart contracts implementing the [EIP-2535 Diamond](https://eips.ethereum.org/EIPS/eip-2535) standard, which is very useful for web3 game projects.
-
-1. [`moonworm`](tooling/moonworm.md) - A code generator which makes it easy for anyone to analyze and interact with Ethereum smart contracts.
+Moonstream gives you the mechanisms you need to keep your economy healthy and sustainable. And to make sure your players are having fun.
 
 ## Supported blockchains
 
-Moonstream currently supports any [EVM-based blockchain](https://ethereum.org/en/developers/docs/evm/),
-such as [Ethereum](https://ethereum.org), [Polygon](https://polygon.technology/), [Gnosis Chain](https://docs.gnosischain.com/), and more.
+Moonstream currently supports any [EVM-based blockchain](https://ethereum.org/en/developers/docs/evm/) and testnets,
+such as [Ethereum](https://ethereum.org), [Polygon](https://polygon.technology/), [Polygon Mumbai Testnet](https://wiki.polygon.technology/docs/tools/ethereum/remix/#deploying-to-the-mumbai-testnet), [Gnosis Chain](https://docs.gnosischain.com/), and more.
 
 ## Open source software
 
@@ -49,13 +24,11 @@ The Moonstream community believes firmly in the principles of [Free Software](ht
 
 Moonstream is completely open source software, free for anyone to use and modify as they please.
 
-Moonstream.to also offers the Moonstream game engine as a hosted service, available at [Moonstream.to](https://moonstream.to).
-
 We do _not_ believe in forcing our views upon our users. We do not use [copyleft licenses](https://en.wikipedia.org/wiki/Copyleft). We favor the
 much more permissive [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 We do _not_ believe in the [open core business model](https://en.wikipedia.org/wiki/Open-core_model).
-Every feature available on Moonstream.to is also freely available to anyone who chooses to host their own instance of the Moonstream Engine.
+Every feature available on Moonstream.to is also freely available to anyone who chooses to host their own instance.
 
 The only code that we write that is _not_ open source is the code related to our security operations. You can read more about this decision in our
 policy document:
