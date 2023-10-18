@@ -11,6 +11,7 @@ nav:
     - "Game mechanics": engine/mechanics/
     - "Entity": entity.md
   - "Tooling":
+    - "Metatransaction": tooling/metatransaction.md
     - "Inspector Facet": tooling/inspector-facet.md
     - "Moonworm": tooling/moonworm.md
 
