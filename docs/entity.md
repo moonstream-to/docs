@@ -7,21 +7,7 @@ tags:
 
 # Entity
 
-Entity is used to store any web3 address (including smart contract addresses and even addresses that may not have been used) and identifying information/notes.
-
-Entities are useful during game air drops, it's providing additional information in leaderboards, for internal usage of crypto projects who want their users to pass KYC and legal things there was a problem to bridge the blockchain and physical world.
-
-Current document describes how to store user identity data with Moonstream infrastructure for different use cases:
-
-It supports different use cases:
-
--   User web3 addresses
--   Maintaining a list of deployed smart contracts (by address)
--   Maintaining a list of smart contract deployers
--   Blacklisting or whitelisting accounts by Discord id, Twitter id, email, etc.
--   Other..
-
-This is not just a mapping between users (human-owned addresses) and identifying information, but any web3 address (including smart contract addresses and even addresses that may not have been used) and identifying information/notes. For smart contracts, it would also store things like bytecode, ABI, etc.
+Entity is used to store web3 addresses (including smart contract addresses and even addresses that have not yet been used) accompanied by identifying information/notes.
 
 For each entity there are 3 permanently required fields:
 
@@ -29,9 +15,21 @@ For each entity there are 3 permanently required fields:
 -   address
 -   blockchain
 
-Depending on the use case, you can specify additional fields that will be required for your entities in certain journal. Then, you will be able to search across these fields with high precision compared to other fields.
+Depending on the use case, you can specify additional required fields.
 
-Detailed documentation you can find at https://api.moonstream.to/journals/docs#tag/entities
+Entities are useful during game air drops, and to  provide additional information on leaderboards. They can also be used internally  by crypto projects as part of their KYC protocols, as the data they store acts as a bridge between the blockchain and physical world.
+
+This document describes how to store user identity data with Moonstream infrastructure for several different use cases:
+
+-   Storing users’ web3 addresses
+-   Maintaining a list of deployed smart contracts (by address)
+-   Maintaining a list of smart contract deployers
+-   Blacklisting or whitelisting accounts by Discord id, Twitter id, email, etc.
+-   Other..
+
+This is not just a mapping between users (human-owned addresses) and identifying information, but any web3 address (including smart contract addresses and even addresses that may not have been used) and identifying information/notes. For smart contracts, the entity would also store things like bytecode, ABI, etc.
+
+You can find detailed documentation at https://api.moonstream.to/journals/docs#tag/entities
 
 ## Different use cases and schemes
 
@@ -92,7 +90,7 @@ additional fields:
 
 All your entities stored in journals and each new journal belongs only to you until you will provide access to you friends or team read/update/delete access.
 
-To work with entity you need to Create an account at https://moonstream.to, and generate Bearer access token or attach your web3 address for web3_token. And store it as environment variable:
+To work with entity you need to Create an account at https://moonstream.to, and generate Bearer access token or attach your web3 address for web3_token. Then store it as an environment variable:
 
 ```bash
 export MOONSTREAM_ACCESS_TOKEN="<your_access_token>"
@@ -150,7 +148,7 @@ curl --location --request POST "https://api.moonstream.to/journals/$MOONSTREAM_E
     }'
 ```
 
-Also you can pass a list of entities to create them in bulk mode to url `https://api.moonstream.to/journals/{{journal_id}}/entities/bulk`
+Also you can pass a list of entities to create in bulk mode to the url `https://api.moonstream.to/journals/{{journal_id}}/entities/bulk`
 
 Get list of entities with request:
 

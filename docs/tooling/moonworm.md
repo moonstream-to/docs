@@ -8,11 +8,11 @@ tags:
 
 # moonworm
 
-[`moonworm`](https://github.com/bugout-dev/moonworm) is a code generation tool which makes it easy
+[`moonworm`](https://github.com/moonstream-to/moonworm) is a code generation tool which makes it easy
 for anyone to interact with smart contracts on an EVM-based blockchain.
 
 It is inspired by [`abigen`](https://github.com/ethereum/go-ethereum/blob/468d1844c7a32b51eebce6c5f35c44a66b9acf64/cmd/abigen/main.go)
-and generates Python bindings to smart contracts when it is provided their ABIs as inputs.
+and generates Python bindings to smart contracts when provided with their ABIs as inputs.
 
 More importantly, `moonworm` also generates fully-featured command-line interfaces to those smart contracts,
 which is extremely useful when running live operations against deployed contracts. It is also helpful
