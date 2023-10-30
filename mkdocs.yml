@@ -2,16 +2,18 @@ site_name: "The Moonstream Docs"
 
 nav:
   - "Welcome!": index.md
-  - "Terminus": terminus.md
-  - "The Moonstream Engine":
-    - "Query API": engine/query-api.md
+  - "Moonstream Core Tools":
+    - "Analytics": engine/analytics.md
+      - "Query API": engine/query-api.md
     - "Leaderboards": engine/leaderboards.md
-    - "Dropper": engine/dropper.md
-    - "Crafting": engine/crafting.md
-    - "Game mechanics": engine/mechanics/
-    - "Entity": entity.md
-  - "Tooling":
+    - "Drops": engine/drops.md
+  - "Additional open source tooling":
+    - "Terminus": terminus.md
     - "Metatransaction": tooling/metatransaction.md
+    - "Entity": entity.md
+    - "NFT Inventory": tooling/nft-inventory.md
+    - "Crafting": tooling/crafting.md
+    - "Garden of Forking Paths": engine/mechanics/garden-of-forking-paths.md
     - "Inspector Facet": tooling/inspector-facet.md
     - "Moonworm": tooling/moonworm.md
 

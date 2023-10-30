@@ -10,12 +10,23 @@ tags:
 
 ## What is Terminus?
 
-Terminus is a smart contract standard. It is a modification to the [EIP-1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)
+Terminus is a protocol for managing access to decentralized applications deployed to Ethereum or other blockchains which utilize the Ethereum Virtual Machine.
 
-Terminus extends EIP-1155 by allowing game designers and game developers to define *transferability*, *burnability*, and even supply limits at the level of token IDs.
+Terminus extends the [EIP-1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155) with rules defining who can mint and burn tokens with a given token ID.
 
-It also allows game designers and game developers to delegate minting and burning capabilities on individual
-token IDs to other accounts or to other smart contracts.
+In Terminus, each ERC-1155 token ID represents a pool of tokens which grant their bearers permission to take a specific set of actions.
+
+Each Terminus pool has a controller address which can:
+1. Mint tokens from that pool to any address they like.
+2. Burn tokens from that pool from any address they like.
+
+The controller can also grant and revoke the above minting and burning privileges to and from other accounts.
+
+When a pool is created, it can be configured to be:
+- **Transferable or non-transferable**: Tokens in transferable pools can be transferred freely between accounts. Tokens in non-transferable pools cannot be transferred between accounts.
+- **Burnable or non-burnable**: Tokens in burnable pools can be burned by their holders. Tokens in non-burnable tools can only be burned by the pool controller or by an account that has been authorized to burn tokens in that pool by the controller.
+
+Terminus also adds batch minting and burning functions to ERC-1155.
 
 ## Terminus in games
 
@@ -38,7 +49,7 @@ Terminus useful for controlling access to smart contracts and APIs.
 Smart contracts can use the `holdsPoolToken` and `spendsPoolToken` modifiers from our `TerminusPermissions`
 contracts to gate access to methods.
 
-Some portions of the Moonstream Engine API use a configurable Terminus pool to gate access to administrative
+Some portions of the Moonstream Web3 API use a configurable Terminus pool to gate access to administrative
 functionality.
 
 The advantage that Terminus-based access control has over address whitelists is that it makes it easy to
@@ -47,12 +58,7 @@ administrators can simply burn and mint batches of Terminus tokens against the s
 
 ## Implementation
 
-The reference implementation of Terminus is available as [`TerminusFacet`](https://github.com/bugout-dev/dao/blob/33b301b0e2219516b507a83c81c5b7d6670867be/contracts/terminus/TerminusFacet.sol).
+The reference implementation of Terminus is available as [`TerminusFacet`](https://github.com/moonstream-to/web3/blob/ec4e44c536cdcc88fbcddd4628955bf607bbad82/contracts/terminus/TerminusFacet.sol).
 
 The above implementation is also compatible with `DELEGATECALL` proxy contracts, such as those implementing the
 [EIP-2535 Diamond standard](https://eips.ethereum.org/EIPS/eip-2535).
-
-## Deployment
-
-You can use the `dao` command line tool to deploy Terminus either as a standalone contract or as an upgradable contract.
-More information about installing the `dao` CLI is available in our [`dao` repository](https://github.com/bugout-dev/dao).

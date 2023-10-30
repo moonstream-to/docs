@@ -26,17 +26,11 @@ story by [Jorge Luis Borges](https://en.wikipedia.org/wiki/Jorge_Luis_Borges).
 
 ## Philosophy
 
-We care deeply about our game mechanics being *fun* for players. The GOFP allows
-game communities to collaboratively create the lore for their game universe.
+We care deeply about our game mechanics being fun for players. The GOFP allows game communities to collaboratively create the lore for their game universes.
 
-All the rules dictating what players can do are represented on the smart contract, but we place no restrictions
-on game masters for how they determine the canonical path through their adventures. Game masters are free
-to use any mechanism they like to resolve paths. From choosing randomly, to choosing based on player votes, to
-choosing by fiat. It is not our place to impose any constraints on game masters.
+All the rules dictating what players can do are represented on the smart contract, but we place no restrictions on game masters for how they determine the canonical path through their adventures. Game masters are free to use any mechanism they like to resolve paths, from choosing randomly, to choosing based on player votes, to choosing by fiat. It is not our place to impose any constraints on game masters.
 
-In our experiences playing and running the GOFP, the fun has been in players creating the lore of
-their game universe through play.
-
+In our experiences playing and running the GOFP, the fun has been in players creating the lore of their game universe through play.
 
 ## Players and game masters
 
@@ -45,16 +39,12 @@ GOFP contracts have two kinds of users:
 1. Players
 2. Game masters
 
-The GOFP allows players to experience adventures using their NFTs. Game masters
-are the ones responsible for creating and running these adventures.
+The GOFP allows players to experience adventures using their NFTs. Game masters are the ones responsible for creating and running these adventures.
 
 When a GOFP contract is set up, the deployer specifies a [Terminus](../../terminus.md)
-badge which defines whether or not an account is a game master. Any account with that badge is treated as
-a game master. Any account without that badge is treated as a player.
+badge which defines whether or not an account is a game master. Any account with that badge is treated as a game master. Any account without that badge is treated as a player.
 
-GOFP contracts do not care if a game master account represents a human, a bot, or
-even a smart contract. One of our principles of composability is that this shouldn't matter. All that
-matters is that they have a badge signifying their authority to run adventures for players.
+GOFP contracts do not care if a game master account represents a human, a bot, or even a smart contract. One of our principles of composability is that this shouldn't matter. All that matters is that they have a badge signifying their authority to run adventures for players.
 
 ## Gameplay
 
@@ -77,8 +67,7 @@ players can send their NFTs into a session free of charge.
 Each session consists of a series of *stages*. Each stage presents each player token a number of *paths* to choose from.
 The number of paths can vary from stage to stage.
 
-Stages represent decision points in story. The paths represent the decisions that the characters can
-make at that decision point.
+Stages represent decision points in the story. The paths represent the decisions that the characters can make at that decision point.
 
 Session progress sequentially through their stages as follows:
 
@@ -90,9 +79,7 @@ Session progress sequentially through their stages as follows:
 
 This process is repeated for each stage in the session until the session ends.
 
-Game masters may also associate a [Terminus](../../terminus.md) reward with each stage. If a stage has
-an associated reward, that token is minted to the staker of every NFT which makes choice at that stage
-after making the correct choice at the previous stage.
+Game masters may also associate a [Terminus](../../terminus.md) reward with each stage. If a stage has an associated reward, that token is minted to the staker of every NFT that makes a choice at that stage after making the correct choice at the previous stage.
 
 GOFP sessions can be *forgiving* or *unforgiving*. In an unforgiving session, player
 tokens which made an incorrect choice in the previous stage may not make a choice in the current stage
@@ -102,7 +89,7 @@ rewards.
 
 ## Contract
 
-The GOFP mechanic is implemented by the [`GOFPFacet` smart contract](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol).
+The GOFP mechanic is implemented by the [`GOFPFacet` smart contract](https://github.com/moonstream-to/web3/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol).
 
 This contract can be used as a facet on an [EIP-2535 proxy contract](https://eips.ethereum.org/EIPS/eip-2535).
 It can also be deployed as a standalone contract. Whether you use a proxy or deploy as a standalone depends
@@ -122,7 +109,7 @@ The GOFP can be used to provide method implementations for [EIP-2535 Diamond pro
 The `diamondNonReentrant` modifier is similar to the Open Zeppelin `nonReentrant` modifier but uses a
 predefined storage slot to make it suitable for use on Diamond contracts.
 
-The implementation is in [`DiamondReentrancyGuard.sol`](https://github.com/bugout-dev/engine/blob/main/contracts/diamond/security/DiamondReentrancyGuard.sol).
+The implementation is in [`DiamondReentrancyGuard.sol`](https://github.com/moonstream-to/web3/blob/main/contracts/diamond/security/DiamondReentrancyGuard.sol).
 
 ### Methods
 
@@ -131,11 +118,11 @@ GOFP contracts have the following external/public methods:
 | Method | Description | returns | method visibility | `onlyGameMaster`? | `diamondNonReentrant`? |
 |--------|-------------|---------|-------------------|-------------------|------------------------|
 | `init` | Initializes a GOFP contract by setting the Terminus address and pool ID for its game master badge. Only the contract owner can call this method. | None | `external` | No | No |
-| `getSession` | Retrieves information about a GOFP game session. | [`Session`](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol) | `external view` | No | No |
+| `getSession` | Retrieves information about a GOFP game session. | [`Session`](https://github.com/moonstream-to/web3/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol) | `external view` | No | No |
 | `adminTerminusInfo` | Returns the Terminus address and pool ID for the Game Master badge registered on the GOFP contract. | (`address`, `uint256`) | `external view` | No | No |
 | `numSessions` | Returns the number of game sessions that have been created on the GOFP contract. | `uint256` | `external view` | No | No |
 | `createSession` | Allows game masters to create a new game session. | None | `external` | Yes | No |
-| `getStageReward` | Returns the reward for a given stage in a given session. | [`StageReward`](https://github.com/bugout-dev/engine/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol) | `external view` | No | No |
+| `getStageReward` | Returns the reward for a given stage in a given session. | [`StageReward`](https://github.com/moonstream-to/web3/blob/main/contracts/mechanics/garden-of-forking-paths/GardenOfForkingPaths.sol) | `external view` | No | No |
 | `setStageRewards` | Allows game masters to set rewards for any number of stages in a given session. | None | `external` | Yes | No |
 | `setSessionActive` | Allows game masters to activate and deactivate game sessions. | None | `external` | Yes | No |
 | `getCorrectPathForStage` | For a given stage in a given session, returns the path that has been marked by game masters as the correct path for that stage. | `uint256` | `external view` | No | No |
@@ -157,13 +144,13 @@ GOFP contracts have the following external/public methods:
 ## Usage
 
 
-You can use the [`enginecli` command-line tool](https://github.com/bugout-dev/engine) to deploy and
+You can use the [`web3cli` command-line tool](https://github.com/moonstream-to/web3) to deploy and
 interact with GOFP contracts.
 
 ### Deploying a GOFP contract
 
 ```bash
-enginecli core gofp-gogogo \
+web3cli core gofp-gogogo \
     --network $BROWNIE_NETWORK \
     --sender $SENDER \
     --admin-terminus-address $GAME_MASTER_TERMINUS_ADDRESS \
@@ -172,7 +159,7 @@ enginecli core gofp-gogogo \
 
 The variables you should define are:
 
-1. `BROWNIE_NETWORK`: The [`brownie`](https://github.com/eth-brownie/brownie) that `enginecli` will use
+1. `BROWNIE_NETWORK`: The [`brownie`](https://github.com/eth-brownie/brownie) that `web3cli` will use
 to connect to your desired blockchain.
 2. `SENDER`: Either a path to an Ethereum account keystore JSON file or the name of a [`brownie`](https://github.com/eth-brownie/brownie)
 account. This is the Ethereum account you will use to submit the transactions that comprise the Garden of
@@ -185,7 +172,7 @@ You can also specify other arguments on the command line, such as `--confirmatio
 To see a full list of the arguments available to the deployment command, run:
 
 ```bash
-enginecli core gofp-gogogo --help
+web3cli core gofp-gogogo --help
 ```
 
 Once this deployment is complete, a JSON object will be printed to `stdout`. The output will have the following structure:
@@ -243,12 +230,12 @@ activate the session (using `setSessionActive`) before players can start partici
 a session with 3 stages, with 2 paths in stage 1, 5 paths in stage 2, and 7 paths in stage 3.
 7. `isForgiving` - Set to `true` to create a forgiving session, and `false` to create an unforgiving session.
 
-Game masters may use the `enginecli` tool to create sessions at their command lines:
+Game masters may use the `web3cli` tool to create sessions at their command lines:
 
 ```
-$ enginecli gofp create-session --help
+$ web3cli gofp create-session --help
 
-usage: enginecli create-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+usage: web3cli create-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
                                 [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --player-token-address
                                 PLAYER_TOKEN_ADDRESS --payment-token-address PAYMENT_TOKEN_ADDRESS --payment-amount PAYMENT_AMOUNT --is-active IS_ACTIVE --uri URI --stages STAGES [STAGES ...]
                                 --is-forgiving IS_FORGIVING
@@ -317,12 +304,12 @@ arrays.
 the corresponding stages. This array must be equal in length to the `stages`, `terminusAddresses`, and `terminusPoolIds`
 arrays.
 
-Game masters may use the `enginecli` tool to set stage rewards at their command lines:
+Game masters may use the `web3cli` tool to set stage rewards at their command lines:
 
 ```
-$ enginecli gofp set-stage-rewards --help
+$ web3cli gofp set-stage-rewards --help
 
-usage: enginecli set-stage-rewards [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+usage: web3cli set-stage-rewards [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
                                    [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id SESSION_ID
                                    --stages STAGES [STAGES ...] --terminus-addresses TERMINUS_ADDRESSES [TERMINUS_ADDRESSES ...] --terminus-pool-ids TERMINUS_POOL_IDS [TERMINUS_POOL_IDS ...]
                                    --reward-amounts REWARD_AMOUNTS [REWARD_AMOUNTS ...]
@@ -380,11 +367,11 @@ The arguments to `setCorrectPathForStage` are:
 4. `setChoosingActive` - Set to `true` to allow NFTs to choose paths in the *next* stage as soon as this
 transaction is successfully completed.
 
-Game masters may use the `enginecli` tool to set stage correct paths for a stage at their command lines:
+Game masters may use the `web3cli` tool to set stage correct paths for a stage at their command lines:
 
 ```
-$ enginecli gofp set-correct-path-for-stage --help
-usage: enginecli set-correct-path-for-stage [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+$ web3cli gofp set-correct-path-for-stage --help
+usage: web3cli set-correct-path-for-stage [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
                                             [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
                                             SESSION_ID --stage STAGE --path PATH --set-is-choosing-active SET_IS_CHOOSING_ACTIVE
 
@@ -438,12 +425,12 @@ The arguments to `stakeTokensIntoSession` are:
 session. The tokens are assumed to be from the EIP-721 contract that was set as the `playerTokenAddress`
 on the session. You can view the session configuration using the `getSession` view method.
 
-Players may use the `enginecli` tool to stake tokens into a session at their command lines:
+Players may use the `web3cli` tool to stake tokens into a session at their command lines:
 
 ```
-$ enginecli gofp stake-tokens-into-session --help
+$ web3cli gofp stake-tokens-into-session --help
 
-usage: enginecli stake-tokens-into-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+usage: web3cli stake-tokens-into-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
                                            [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
                                            SESSION_ID --token-ids TOKEN_IDS [TOKEN_IDS ...]
 
@@ -490,12 +477,12 @@ The arguments to `unstakeTokensFromSession` are:
 session. The tokens are assumed to be from the EIP-721 contract that was set as the `playerTokenAddress`
 on the session. You can view the session configuration using the `getSession` view method.
 
-Players may use the `enginecli` tool to unstake tokens from a session at their command lines:
+Players may use the `web3cli` tool to unstake tokens from a session at their command lines:
 
 ```
-$ enginecli gofp unstake-tokens-from-session --help
+$ web3cli gofp unstake-tokens-from-session --help
 
-usage: enginecli unstake-tokens-from-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+usage: web3cli unstake-tokens-from-session [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
                                              [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
                                              SESSION_ID --token-ids TOKEN_IDS [TOKEN_IDS ...]
 
@@ -545,12 +532,12 @@ on the session. You can view the session configuration using the `getSession` vi
 3. `paths` - An array of path choices per `tokenId` in the `tokenIds` array. This array should have the
 same length as the `tokenIds` array. Remember that paths are 1-indexed.
 
-Players may use the `enginecli` tool to choose paths for their NFTs at their command lines:
+Players may use the `web3cli` tool to choose paths for their NFTs at their command lines:
 
 ```
-$ enginecli gofp choose-current-stage-paths --help
+$ web3cli gofp choose-current-stage-paths --help
 
-usage: enginecli choose-current-stage-paths [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
+usage: web3cli choose-current-stage-paths [-h] --network NETWORK [--address ADDRESS] --sender SENDER [--password PASSWORD] [--gas-price GAS_PRICE] [--max-fee-per-gas MAX_FEE_PER_GAS]
                                             [--max-priority-fee-per-gas MAX_PRIORITY_FEE_PER_GAS] [--confirmations CONFIRMATIONS] [--nonce NONCE] [--value VALUE] [--verbose] --session-id
                                             SESSION_ID --token-ids TOKEN_IDS [TOKEN_IDS ...] --paths PATHS [PATHS ...]
 

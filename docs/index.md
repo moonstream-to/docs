@@ -2,20 +2,42 @@
 
 ## What is Moonstream?
 
-Moonstream is economic infrastructure for web3 games. It makes it easy to manage blockchain game economies.
+Moonstream provides economic infrastructure for web3 games. It makes it easy to manage blockchain game economies.
 
-One of the biggest challenges for web3 game designers and game developers is that putting your game economy on-chain turns it into
-a real economy. This takes control of your game economy away from you, the game designer. Your community is in charge now:
-
-<center>![Meme: Look at me. I'm the captain now.](https://s3.amazonaws.com/static.simiotics.com/memes/im-the-captain-now.gif)</center>
+One of the biggest challenges for web3 game designers and game developers is that putting your game economy on-chain turns it into a real economy. This takes control of your game economy away from you, the game designer. Your community is in charge now.
 
 This means that you can no longer freely manipulate your game economy to improve your game.
 
-Moonstream gives you the mechanisms you need to keep your economy healthy and sustainable. And to make sure your players are having fun.
+Moonstream gives you the mechanisms you need to keep your economy healthy and sustainable–and to make sure your players are having fun.
+
+## Moonstream Core Tools
+
+The main Moonstream mechanisms are:
+
+- [Analytics](./engine/analytics.md) - the base for all our tools; provides you with data on account activity for regular addresses and smart contracts. This includes:
+    - ABI Explorer
+    - [Query API](./engine/query-api.md)
+- [Leaderboards](./engine/leaderboards.md) - a deflationary tool; makes it easy for game developers to combine on- and off-chain game activity to assign points to players.
+- [Drops](./engine/drops.md) - a tool for game designers and game developers to automate rewarding their players for in-game activities with on-chain items, experience, and game currencies. This includes:
+    - Lootboxes
+
+## Additional open source tooling
+
+In addition to the main Moonstream web3 mechanisms, Moonstream also maintains several tools for the benefit of the web3 developer community:
+
+- [Terminus](terminus.md) - a smart contract standard (a modification of the [EIP-1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155)) designed to represent items, achievements, and experience in web3 games. It’s also useful as an access control mechanism for smart contracts and APIs.
+- [Metatransaction](./tooling/metatransaction.md) - this API provides endpoints to interact with user registered contracts.
+- [Entity](entity.md) - a way to store any web3 address (including smart contract addresses and even addresses that may not have been used) together with identifying information/notes.
+- [NFT Inventory](./tooling/nft-inventory.md) - functional on-chain inventory slots for NFTs so that NFTs can own and equip items.
+- [Crafting](./tooling/crafting.md) - fully on-chain crafting system with customizable recipes.
+- [Garden of Forking Paths](./engine/mechanics/garden-of-forking-paths.md) - an on-chain game mechanic for choosing paths in a story.
+- [Inspector Facet](./tooling/inspector-facet.md) - a tool which makes it easy for anyone to inspect upgradable smart contracts implementing the [EIP-2535 Diamond](https://eips.ethereum.org/EIPS/eip-2535) standard, which is very useful for web3 game projects.
+- [Moonworm](./tooling/moonworm.md) - a code generator which makes it easy for anyone to analyze and interact with Ethereum smart contracts.
+
 
 ## Supported blockchains
 
-Moonstream currently supports any [EVM-based blockchain](https://ethereum.org/en/developers/docs/evm/) and testnets,
+Moonstream can currently support any [EVM-based blockchain](https://ethereum.org/en/developers/docs/evm/) and **testnets**,
 such as [Ethereum](https://ethereum.org), [Polygon](https://polygon.technology/), [Polygon Mumbai Testnet](https://wiki.polygon.technology/docs/tools/ethereum/remix/#deploying-to-the-mumbai-testnet), [Gnosis Chain](https://docs.gnosischain.com/), and more.
 
 ## Open source software
