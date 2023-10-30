@@ -61,7 +61,7 @@ inspector-facet \
     --format human
 ```
 
-The following command produces JSON output and can be used to inspect a Diamond contract programmatically
+The following command produces JSON output and can be used to inspect a Diamond contract programatically
 (e.g. as part of a CI/CD pipeline):
 ```bash
 inspector-facet \
@@ -73,7 +73,7 @@ inspector-facet \
 
 #### To build an audit log of Diamond operations on an EIP2535 proxy contract
 
-To build an audit log, you will need to crawl `DiamondCut` events from the blockchain. You can do this using [`moonworm`](https://github.com/moonstream-to/moonworm).
+To build an audit log, you will need to crawl `DiamondCut` events from the blockchain. You can do this using [`moonworm`](https://github.com/bugout-dev/moonworm).
 
 First, you will need to install `moonworm`:
 
@@ -227,5 +227,5 @@ brownie networks add Polygon matic chainid=137 host=https://polygon-rpc.com expl
 
 You can get help in any of the following ways:
 
-1. [File an issue](https://github.com/moonstream-to/inspector-facet/issues/new)
+1. [File an issue](https://github.com/bugout-dev/inspector-facet/issues/new)
 2. Ask for help on [Moonstream Discord](https://discord.gg/K56VNUQGvA)

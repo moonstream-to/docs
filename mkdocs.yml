@@ -4,7 +4,7 @@ nav:
   - "Welcome!": index.md
   - "Moonstream Core Tools":
     - "Analytics": engine/analytics.md
-      - "Query API": engine/query-api.md
+    - "Query API": engine/query-api.md
     - "Leaderboards": engine/leaderboards.md
     - "Drops": engine/drops.md
   - "Additional open source tooling":
