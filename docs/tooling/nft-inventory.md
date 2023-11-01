@@ -37,6 +37,5 @@ Games can use the items equipped in a character's inventory to determine their a
 
 [Here](https://blog.moonstream.to/2023/09/06/nft-inventory-vs-tokenbound-accounts/) is a comparison between ERC-6551 (Tokenbound) and NFT Inventory.
 
-[!NOTE]
-💡This technology is being developed in collaboration with Game7 DAO and Summon. Here is a GitHub repository with more details.
+💡***Note***: This technology is being developed in collaboration with Game7 DAO and Summon. [Here](https://github.com/mmoeip/inventory) is a GitHub repository with more details.
 

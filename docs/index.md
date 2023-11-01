@@ -16,7 +16,7 @@ The main Moonstream mechanisms are:
 
 - [Analytics](./engine/analytics.md) - the base for all our tools; provides you with data on account activity for regular addresses and smart contracts. This includes:
     - ABI Explorer
-    - [Query API](./engine/query-api.md)
+    - Query API
 - [Leaderboards](./engine/leaderboards.md) - a deflationary tool; makes it easy for game developers to combine on- and off-chain game activity to assign points to players.
 - [Drops](./engine/drops.md) - a tool for game designers and game developers to automate rewarding their players for in-game activities with on-chain items, experience, and game currencies. This includes:
     - Lootboxes
