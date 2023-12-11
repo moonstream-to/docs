@@ -69,39 +69,91 @@ To use the Query API, a user must first:
 2.  Create a Postgres SQL query that returns the information they want. They can use Postgres variables
     in the query, and pass in values for those variables from the API.
 
-3.  Make an HTTP request in the [format below](#request-format).
+3.  Make an HTTP request
 
-4.  This request returns an [AWS S3 presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html) at which you can access the data from an S3 bucket.
-    To work with the presigned URL:
-
-        1. Store a `request_timestamp` before the `update_data` request.
-
-        2. Make an HTTP request of the form of `Codeblock` and receive a `presigned_url` for S3 access.
-
-        3. `GET presigned_url` and set an `If-Modified-Since: request_timestamp` header on your `GET` request. The possible status codes here are:
-
-            1. `404` - means this was the first time this query was called and data has not been pushed to S3 bucket yet
-
-            2. `304` - data older then If-Modified-Since and has not yet been updated
-
-            3. `200` - data is updated, read response, have fun!
-
-    See the [example below for a Python implementation of this workflow](#example-a-python-script-to-read-data-from-the-query-api).
-
-### Request format
+## Moonstream API Usage Examples
+### List All Queries
+To view all your registered queries, use the following GET request. This helps in managing your queries efficiently.
 
 ```
-POST https://api.moonstream.to/queries/{query_name}/update_data
+GET <https://api.moonstream.to/queries/list
+Authorization: Bearer <Your token>
+```
+
+### Create a New Query
+To create a new query, use the POST method. This example demonstrates creating a query named "shadowcorns_hatching". It's a powerful feature allowing you to register your custom SQL queries to run against the database.
+
+```
+POST <https://api.moonstream.to/queries/
+Authorization: Bearer <Your token>
 Content-Type: application/json
-Authorization: bearer <token>
+
+{
+    "name": "shadowcorns_hatching",
+    "query": "SELECT label_data->'args'->>'playerWallet' AS address, label_data->'args'->>'tokenId' AS token_id, block_timestamp AS time FROM polygon_labels WHERE address='0xa7D50EE3D7485288107664cf758E877a0D351725' AND label_data->>'type'='event' AND label_data->>'name'='HatchingShadowcornCompleted' ORDER BY block_timestamp DESC"
+}
+```
+
+### Retrieve a Specific Query
+To get the SQL query registered under a specific name, use this GET request. It's useful for retrieving and verifying your existing queries.
+
+```
+GET <https://api.moonstream.to/queries/{query_name}/query
+Authorization: Bearer <Your token>
+Content-Type: application/json
+```
+
+### Update an Existing Query
+If you need to update a previously created query, use the PUT method as shown. This allows for modifications to your existing queries.
+
+```
+PUT <https://api.moonstream.to/queries/{query_name}
+Authorization: Bearer <Your token>
+Content-Type: application/json
+
+{
+    "query": "SELECT label_data->'args'->>'playerWallet' AS address, label_data->'args'->>'tokenId' AS token_id, block_timestamp AS time FROM polygon_labels WHERE address='0xa7D50EE3D7485288107664cf758E877a0D351725' AND label_data->>'type'='event' AND label_data->>'name'='HatchingShadowcornCompleted' ORDER BY block_timestamp DESC"
+}
+```
+
+### Request Data Update for a Query
+To request the latest data based on your query, use this POST method. It's essential for keeping your data up-to-date.
+
+```
+POST <https://api.moonstream.to/queries/{query_name}/update_data
+Authorization: Bearer <Your token>
+Content-Type: application/json
+
 {
     "params": {
-        "<variable name>": "<variable value>"
     }
 }
 ```
 
-### Example: A Python script to read data from the Query API
+## Working with responses
+
+When you request **update_data** for a query, it responds with an [AWS S3 presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html) at which you can access the data from an S3 bucket.
+
+**Example response:**
+```json
+{
+  "url": "https://moonstream-queries.s3.amazonaws.com/prod/queries/59a399bc-73ca-4e66-a04a-48ccabce……wMyC1XvhkwL0zpAQEhI%2B9Zf9%2BNkNdIgSKxnt6eyaabE31lX7reSiIpmKjROfvT8HIvysMnXu5qiiq8pyFevw%3D%3D&Expires=1660206971"
+}
+```
+
+Working with the pre-signed URL:
+
+1. Store a **request_timestamp** before your *update_data* request.
+2. POST to **/<query_name>/update_data**, which kicks off a process to dump the data to S3
+3. Receive **presigned_url** for s3 access
+4. GET **presigned_url** with **If-Modified-Since: request_timetsamp** header. Possible status codes:
+    1. **404 -** route is empty, means this was the first time this query was called and data has not been pushed to S3 bucket yet
+    2. **304** - data older than **If-Modified-Since** - data is still not updated
+    3. **200 -** data is updated, read response, have fun!
+
+> Each time you update the data you overwrite the old S3 object with the new data.
+
+An example Python script to retrieve data from the Query API:
 
 ```python
 query_name = "current_owners_with_tokens"
@@ -139,4 +191,22 @@ while keep_going:
     else:
         # You can put a sleep in here if you want
         continue
+```
+
+## Sample data
+
+All data is returned in JSON format. The top-level JSON object contains the following keys:
+
+1. *block_number* - the block number of the most recently crawled block
+2. *block_timestamp* - the block timestamp of the most recently crawled block
+3. *data* - this is a JSON array containing the data that you care about
+
+### Delete a Query
+
+To remove an existing query from your list, use the DELETE method. This helps in cleaning up old or unused queries.
+
+```
+DELETE https://api.moonstream.to/queries/{query_name}
+Authorization: Bearer <Your token>
+Content-Type: application/json
 ```
