@@ -33,7 +33,7 @@ Leaderboards are in open beta. We haven't turned on billing for it yet; however,
 ### Creating and updating a leaderboard
 
 1. Create a free Moonstream account [here](https://moonstream.to/). 
-2. Go to Moonstream [Portal](https://moonstream.to/portal/) and click [Leaderboards](https://moonstream.to/portal/leaderboard/).
+2. Go to Moonstream [Portal](https://moonstream.to/portal/) and click [Leaderboards](https://moonstream.to/portal/leaderboard/)
 3. Click on “Add new leaderboard” to create one 
 
 ![Create Leaderboard](image-6.png)
