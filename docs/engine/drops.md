@@ -58,6 +58,55 @@ To manage token drops:
 1. Create a free Moonstream account [here](https://moonstream.to/). 
 2. Go to Moonstream [Portal](https://moonstream.to/portal/) and click [Drops](https://moonstream.to/portal/dropper/).
 
+# Signing Drops In Portal
+
+## Pre-requisites
+
+Before proceeding with signing drops in the portal, ensure that you have prepared a file in JSON format. This file should adhere to a specific structure with columns:
+
+[ { dropId, claimant, requestID, blockDeadline, amount }]
+
+## Signing Drops via Portal
+
+### Accessing the Portal
+
+Sign into the Moonstream Portal and navigate to "Drops". Select the dropper contract you intend to manage if it is saved, or enter the address and click show. You will be required to connect your Metamask.
+
+Once you are in the dropper contract, select the pool you wish to sign drops for, then scroll down to the "Claimant" section.
+
+### Choosing the Signing Method
+
+You will encounter two options: "Sign with Server" and "Manual Signing."
+
+#### Sign with Server
+
+For server signing, select "Sign with Server" and choose the appropriate signing server assigned to your account. This will sign the drops and send the signed drops to Moonstream’s Meta Transaction API that you can connect to display the claims to your players.
+
+#### Understanding Pool Signing Authority
+
+**Token Authorization:** Indicates that the wallet address possesses the signing authorization badge to sign drops in this pool.
+
+![Alt text](image-8.png)
+
+If the wallet address has minting authority for the signing badge, you will be shown the option to burn the signing authorization badge.
+
+**Mint Authority Without Signing Authority:** If the wallet address has minting authority for the signing token but no signing authority, you can mint a signing authorization badge to the wallet address.
+
+![Alt text](image-9.png)
+
+**No Authority:** If you lack both signing and minting authorities, signing is still possible, but claimant access is restricted until you obtain a signing authorization badge from the contract or pool controller.
+
+![Alt text](image-10.png)
+
+#### File Upload and Signing
+
+Upload the prepared drops file and initiate the signing process through the selected server.
+
+### Manual Signing
+
+If opting for manual signing, the process requires a file with two additional columns: 'signer' and 'signature.' To get this file with both columns, use the CLI tool.
+
+
 # Lootboxes
 
 Before dropping tokens to players, you can bundle them into fully on-chain randomizable lootboxes. These are implemented as [Terminus](../terminus.md) tokens. Lootboxes come in two varieties - deterministic and random.
