@@ -70,7 +70,7 @@ Before proceeding with signing drops in the portal, ensure that you have prepare
 
 ### Accessing the Portal
 
-Sign into the Moonstream Portal and navigate to "Drops". Select the dropper contract you intend to manage if it is saved, or enter the address and click show. You will be required to connect your Metamask.
+Sign in to the Moonstream Portal and navigate to "Drops". Select the dropper contract you intend to manage if it is saved, or enter the address and click show. You will be required to connect your Metamask.
 
 Once you are in the dropper contract, select the pool you wish to sign drops for, then scroll down to the "Claimant" section.
 
@@ -81,6 +81,8 @@ You will encounter two options: "Sign with Server" and "Manual Signing."
 #### Sign with Server
 
 For server signing, select "Sign with Server" and choose the appropriate signing server assigned to your account. This will sign the drops and send the signed drops to Moonstream’s Meta Transaction API that you can connect to display the claims to your players.
+
+*If you have no signing server available, contact the Moonstream team on [Discord](https://discord.com/channels/867156607644860418/872202129060810762) to have one created for you.*
 
 #### Understanding Pool Signing Authority
 
