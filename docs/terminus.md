@@ -14,7 +14,7 @@ Terminus is a protocol for managing access to decentralized applications deploye
 
 Terminus extends the [EIP-1155 Multi-Token Standard](https://eips.ethereum.org/EIPS/eip-1155) with rules defining who can mint and burn tokens with a given token ID.
 
-In Terminus, each ERC-1155 token ID represents a pool of tokens which grant their bearers permission to take a specific set of actions.
+In Terminus, each ERC1155 token ID represents a pool of tokens which grant their bearers permission to take a specific set of actions.
 
 Each Terminus pool has a controller address which can:
 1. Mint tokens from that pool to any address they like.
